@@ -1,0 +1,42 @@
+<div class="backdrop"></div>
+<header class="main-header">
+    <button id="side-menu-toggle">Menu</button>
+    <nav class="main-header__nav">
+        <ul class="main-header__item-list">
+            <li class="main-header__item">
+                <a class="<%= path === '/' ? 'active' : '' %>" href="/">Inicial</a>
+            </li>
+            <li class="main-header__item">
+                <a class="<%= path === '/products' ? 'active' : '' %>" href="/exemplo">Exemplo</a>
+            </li>
+            <li class="main-header__item">
+                <a class="<%= path === '/cart' ? 'active' : '' %>" href="/exemplo2">Exemplo 2</a>
+            </li>
+            <li class="main-header__item">
+                <a class="<%= path === '/orders' ? 'active' : '' %>" href="/exemplo3">Exemplo 3</a>
+            </li>
+        </ul>
+        <ul class="main-header__item-list">
+            <li class="main-header__item">
+                <a href="/login">Login</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<nav class="mobile-nav">
+    <ul class="mobile-nav__item-list">
+        <li class="mobile-nav__item">
+            <a class="<%= path === '/' ? 'active' : '' %>" href="/">Inicial</a>
+        </li>
+        <li class="mobile-nav__item">
+            <a class="<%= path === '/products' ? 'active' : '' %>" href="/exemplo">Exemplo</a>
+        </li>
+        <li class="mobile-nav__item">
+            <a class="<%= path === '/cart' ? 'active' : '' %>" href="/exemplo2">Exemplo 2</a>
+        </li>
+        <li class="mobile-nav__item">
+            <a class="<%= path === '/orders' ? 'active' : '' %>" href="/exemplo3">Exemplo 3</a>
+        </li>
+    </ul>
+</nav>
