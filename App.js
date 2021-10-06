@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 
 require('./database');
 
+const errorController = require('./controllers/error');
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -13,6 +14,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const mainRoutes = require ('./routes/main');
 app.use('/', mainRoutes);
+
+app.use(errorController.get404);
 
 // temporary, must build online paths later
 
