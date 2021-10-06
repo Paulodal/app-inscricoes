@@ -2,7 +2,7 @@ module.exports = {
     dialect: 'mysql',
     host: 'localhost',
     username: 'root',
-    password: '1q2w3e4r',
+    password: 'EXAMPLE',
     database: 'cvv_app',
     define: {
         timestamps: true,
