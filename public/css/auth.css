@@ -1,4 +1,11 @@
-.login-form {
+.g-signin2 {
+  width: 20rem;
+  max-width: 90%;
+  margin: auto;
+  display: block;
+}
+
+.h1 {
   width: 20rem;
   max-width: 90%;
   margin: auto;
