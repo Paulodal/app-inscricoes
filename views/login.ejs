@@ -1,0 +1,43 @@
+<%- include('includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/forms.css">
+    <link rel="stylesheet" href="/css/auth.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id" content="269418576122-6f3tc12u3otbgi12dfso6g9og6r11300.apps.googleusercontent.com"> <!-- USANDO ID TESTE! -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <title>Faça seu Login</title>
+</head>
+<body>
+    <h1>Olá! Para continuar, faça seu login</h1>
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+    <script>
+    function signOut() {
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+        });
+    }
+    </script>
+
+    <script>
+    function onSignIn(googleUser) {
+
+        var id_token = googleUser.getAuthResponse().id_token;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/login');
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onload = function() {
+            console.log('Signed in as: ' + xhr.responseText);
+            if(xhr.responseText == 'success'){
+                signOut();
+                location.assign('/login')
+            }
+        };
+        xhr.send(JSON.stringify({token : id_token}));
+      }
+    </script>
+</body>
+<%- include('includes/end.ejs') %>
+</html>
