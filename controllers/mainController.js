@@ -17,7 +17,7 @@ exports.getLogin = (req, res, next) => {
 
 exports.postLogin = (req, res, next) => {
   let token = req.body.token;
-
+  
   async function verify() {
       const ticket = await client.verifyIdToken({
           idToken: token,
