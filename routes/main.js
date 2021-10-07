@@ -14,6 +14,7 @@ router.get('/saveusers',  checkAuthenticated, mainController.saveUsers); // this
 function checkAuthenticated(req, res, next){
 
     let token = req.cookies['session-token'];
+    console.log(token)
 
     let user = {};
     async function verify() {
