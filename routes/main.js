@@ -9,7 +9,7 @@ router.get('/login', mainController.getLogin)
 router.post('/login', mainController.postLogin)
 
 router.get('/users',  checkAuthenticated, mainController.getUsers);
-router.get('/saveusers',  checkAuthenticated, mainController.saveUsers); // this is supposed to be a post route, just testing
+router.get('/saveusers', mainController.saveUsers); // this is supposed to be a post route, just testing
 
 function checkAuthenticated(req, res, next){
 

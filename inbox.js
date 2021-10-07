@@ -1,9 +1,12 @@
 var AWS = require("aws-sdk");
 const fs = require("fs");
+require("./database");
+const awsConfig = require("./config/aws");
+const Volunteer = require("./models/Volunteer");
 
 AWS.config.update({
-  accessKeyId: "AKIA4CH6ERRKGS34LQB6",
-  secretAccessKey: "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",
+  accessKeyId: awsConfig.accessKeyId,
+  secretAccessKey: awsConfig.secretAccessKey,
   region: "us-east-1",
 });
 
@@ -20,37 +23,62 @@ s3.listObjects(params, (err, data) => {
   var contents = data["Contents"];
   var filename = "";
   var body = "";
+  var start = 0;
+  var end = 0;
+  var name = "";
+  var email = "";
+  var telefone = "";
+  var cidade = "";
   contents.forEach((x, i) => {
     filename = x["Key"];
     // console.log(filename, i);
     s3.getObject({ Key: filename, Bucket: "email-repo-pp" }, (err, data) => {
       if (err) throw err;
-      body = cleanup(data.Body.toString("utf-8"));
-      var start = body.indexOf("Nome: ");
-      var end = body.indexOf("<br>", start);
-    //   var name = body.substring(start, end);
-      console.log(cleanup(body.substring(start, end)));
 
-      //   fs.writeFile("./tmp/" + i + '.txt', data.Body, (err) => {
-      //     if (err) throw err;
-      //     console.log("file downloaded successfully");
-      //   });
+      body = data.Body.toString("utf-8");
+
+      start = body.indexOf("Nome: ") + 6;
+      end = body.indexOf("<br>", start);
+      name = cleanup(body.substring(start, end));
+
+      start = body.indexOf("E-mail: ") + 8;
+      end = body.indexOf("<br>", start);
+      email = cleanup(body.substring(start, end));
+
+      start = body.indexOf("Telefone: ") + 10;
+      end = body.indexOf("<br>", start);
+      telefone = cleanup(body.substring(start, end));
+
+      start = body.indexOf("Cidade: ") + 8;
+      end = body.indexOf("<br>", start);
+      cidade = cleanup(body.substring(start, end));
+
+      console.log(name, email, telefone, cidade);
+
+      const volunteer = Volunteer.create({
+        cvv_number: "62720",
+        name: name,
+        email: email,
+      });
     });
   });
 });
 
 function cleanup(str) {
-    str = str.split('=C3=AD').join('í');
-    str = str.split('=C3=A7').join('ç');
-    str = str.split('=C3=A9').join('é');
-    str = str.split('=C3=A1').join('á');
-    str = str.split('=C3=A3').join('ã');
-    str = str.split('=C3=83').join('Ã');
-    str = str.split('=C3=87').join('Ç');
-    str = str.split('=C3=AA').join('ê');
-    str = str.split('=C3=BA').join('ú');
-    str = str.split('=C3=B5').join('õ');
-    str = str.split('=C3=B3').join('ó');
-    str = str.split('=C3=B4').join('ô');
-    return str;
+  str = str.split("=C3=AD").join("í");
+  str = str.split("=C3=8D").join("Í");
+  str = str.split("=C3=A7").join("ç");
+  str = str.split("=C3=87").join("Ç");
+  str = str.split("=C3=A9").join("é");
+  str = str.split("=C3=89").join("É");
+  str = str.split("=C3=A1").join("á");
+  str = str.split("=C3=A2").join("Á");
+  str = str.split("=C3=A3").join("ã");
+  str = str.split("=C3=83").join("Ã");
+  str = str.split("=C3=AA").join("ê");
+  str = str.split("=C3=BA").join("ú");
+  str = str.split("=C3=B5").join("õ");
+  str = str.split("=C3=B3").join("ó");
+  str = str.split("=C3=B4").join("ô");
+  return str;
 }

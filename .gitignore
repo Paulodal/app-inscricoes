@@ -1,4 +1,5 @@
 /node_modules
 *.txt
 /config/database.js
+/config/aws.js
 /tmp
