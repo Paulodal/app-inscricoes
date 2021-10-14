@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       cvv_number: {
-        type: Sequelize.STRING(20),
+        type: Sequelize.INTEGER,
         allowNull: true
       },
       name: {
